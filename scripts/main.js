@@ -1,20 +1,20 @@
-let from = document.querySelector(".currencies-from");
-let to = document.querySelector(".currencies-to");
-let amount = document.querySelector(".amount");
-let result = document.querySelector(".result");
+const from = document.querySelector(".currencies-from");
+const to = document.querySelector(".currencies-to");
+const amount = document.querySelector(".amount");
+const result = document.querySelector(".result");
 
-const getCurrencies = async () => {
+async function getCurrencies() {
   const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
   const currencies = Object.entries(data);
-  let option = currencies.map((currency) => `<option value="${currency[0]}">${currency[1]}</option>`).join("\n");
+  const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[1]}</option>`).join("\n");
   from.innerHTML = option;
   to.innerHTML = option;
   from.value = "EUR";
   to.value = "DKK";
 }
 
-const convertCurrency = async () => {
+async function convertCurrency() {
   const fromValue = from.value;
   const toValue = to.value;
   const amountValue = amount.value;
@@ -29,12 +29,20 @@ const convertCurrency = async () => {
   }
 }
 
-document.addEventListener("change", (event) => {
-  if (event.target !== from && event.target !== to && event.target !== amount) {
+document.addEventListener("change", (e) => {
+  if (e.target !== from && e.target !== to && e.target !== amount) {
     return;
-  } else {
-    convertCurrency();
   }
+
+  convertCurrency();
+});
+
+document.addEventListener("keyup", (e) => {
+  if (e.target !== amount) {
+    return;
+  }
+
+  convertCurrency();
 });
 
 getCurrencies();
