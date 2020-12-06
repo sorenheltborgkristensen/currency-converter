@@ -33,7 +33,6 @@ document.addEventListener("change", (e) => {
   if (e.target !== from && e.target !== to && e.target !== amount) {
     return;
   }
-
   convertCurrency();
 });
 
@@ -41,7 +40,6 @@ document.addEventListener("keyup", (e) => {
   if (e.target !== amount) {
     return;
   }
-
   convertCurrency();
 });
 
