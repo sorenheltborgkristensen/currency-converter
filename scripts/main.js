@@ -1,32 +1,41 @@
-let selectFrom = document.querySelector(".currencies-from");
-let selectTo = document.querySelector(".currencies-to");
+let from = document.querySelector(".currencies-from");
+let to = document.querySelector(".currencies-to");
 let amount = document.querySelector(".amount");
+let result = document.querySelector(".result");
 
 async function getCurrencies() {
   const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
   const currencies = Object.entries(data);
   let option = currencies.map((currency) => `<option value="${currency[0]}">${currency[1]}</option>`).join("\n");
-  selectFrom.innerHTML = option;
-  selectTo.innerHTML = option;
-  selectFrom.value = "EUR";
-  selectTo.value = "DKK";
+  from.innerHTML = option;
+  to.innerHTML = option;
+  from.value = "EUR";
+  to.value = "DKK";
 }
 
 async function convertCurrency() {
-  const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${selectFrom.value}&to=${selectTo.value}`);
-  const data = await response.json();
+  const fromValue = from.value;
+  const toValue = to.value;
+  const amountValue = amount.value;
+
+  if (fromValue === toValue) {
+    result.textContent = amountValue;
+  } else {
+    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amountValue}&from=${fromValue}&to=${toValue}`);
+    const data = await response.json();
+    const conversionResult = Object.values(data.rates);
+    result.textContent = parseFloat(conversionResult).toFixed(2);
+  }
 }
 
 document.addEventListener("change", (event) => {
-  if (
-    event.target !== selectFrom &&
-    event.target !== selectTo &&
-    event.target !== amount
-  ) {
+  if (event.target !== from && event.target !== to && event.target !== amount) {
     return;
+  } else {
+    convertCurrency();
   }
-  convertCurrency();
 });
 
 getCurrencies();
+convertCurrency();
