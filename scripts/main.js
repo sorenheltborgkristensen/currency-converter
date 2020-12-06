@@ -3,7 +3,7 @@ let to = document.querySelector(".currencies-to");
 let amount = document.querySelector(".amount");
 let result = document.querySelector(".result");
 
-async function getCurrencies() {
+const getCurrencies = async () => {
   const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
   const currencies = Object.entries(data);
@@ -14,7 +14,7 @@ async function getCurrencies() {
   to.value = "DKK";
 }
 
-async function convertCurrency() {
+const convertCurrency = async () => {
   const fromValue = from.value;
   const toValue = to.value;
   const amountValue = amount.value;
