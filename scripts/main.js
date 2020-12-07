@@ -3,26 +3,28 @@ const to = document.querySelector(".currencies-to");
 const amount = document.querySelector(".amount");
 const result = document.querySelector(".result");
 
-async function getCurrencies() {
+async function getCurrencyNames() {
   const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
   const currencies = Object.entries(data);
+
   const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[1]}</option>`).join("\n");
+
   from.innerHTML = option;
   to.innerHTML = option;
+
   from.value = "EUR";
   to.value = "DKK";
+  amount.value = 1;
+
+  convertCurrency();
 }
 
 async function convertCurrency() {
-  const fromValue = from.value;
-  const toValue = to.value;
-  const amountValue = amount.value;
-
-  if (fromValue === toValue) {
-    result.textContent = amountValue;
+  if (from.value === to.value) {
+    result.textContent = amount.value;
   } else {
-    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amountValue}&from=${fromValue}&to=${toValue}`);
+    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${from.value}&to=${to.value}`);
     const data = await response.json();
     const conversionResult = Object.values(data.rates);
     result.textContent = parseFloat(conversionResult).toFixed(2);
@@ -43,5 +45,5 @@ document.addEventListener("keyup", (e) => {
   convertCurrency();
 });
 
-getCurrencies();
+getCurrencyNames();
 convertCurrency();
