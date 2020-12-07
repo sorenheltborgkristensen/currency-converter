@@ -7,18 +7,18 @@ async function getCurrencyNames() {
   const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
   const currencies = Object.entries(data);
+  return currencies;
+}
 
+getCurrencyNames().then((currencies) => {
   const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[1]}</option>`).join("\n");
-
   from.innerHTML = option;
   to.innerHTML = option;
-
   from.value = "EUR";
   to.value = "DKK";
   amount.value = 1;
-
   convertCurrency();
-}
+});
 
 async function convertCurrency() {
   if (from.value === to.value) {
@@ -31,19 +31,9 @@ async function convertCurrency() {
   }
 }
 
-document.addEventListener("change", (e) => {
-  if (e.target !== from && e.target !== to && e.target !== amount) {
-    return;
-  }
-  convertCurrency();
-});
-
-document.addEventListener("keyup", (e) => {
-  if (e.target !== amount) {
-    return;
-  }
-  convertCurrency();
-});
-
-getCurrencyNames();
 convertCurrency();
+
+from.addEventListener("change", convertCurrency);
+to.addEventListener("change", convertCurrency);
+amount.addEventListener("change", convertCurrency);
+amount.addEventListener("keyup", convertCurrency);
