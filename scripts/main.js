@@ -1,8 +1,8 @@
-const from = document.querySelector(".currencies-from");
-const to = document.querySelector(".currencies-to");
+const currencyFrom = document.querySelector(".currency-from");
+const currencyTo = document.querySelector(".currency-to");
 const amount = document.querySelector(".amount");
 const result = document.querySelector(".result");
-const swap = document.querySelector(".swap");
+const swapCurrencies = document.querySelector(".swap-currency");
 
 const url_currencies = "https://api.frankfurter.app/currencies";
 const url_conversion = "https://api.frankfurter.app/latest";
@@ -15,10 +15,10 @@ const cunrrencies = async () => {
 };
 
 const conversion = async () => {
-  if (from.value === to.value) {
+  if (currencyFrom.value === currencyTo.value) {
     result.textContent = amount.value;
-  } else if (amount.value.length !== 0 && from.value.length !== 0 && to.value.length !== 0) {
-    const response = await fetch(url_conversion + `?amount=${amount.value}&from=${from.value}&to=${to.value}`);
+  } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
+    const response = await fetch(url_conversion + `?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
     const data = await response.json();
     const conversion = Object.values(data.rates);
     result.textContent = parseFloat(conversion).toFixed(2);
@@ -27,23 +27,23 @@ const conversion = async () => {
 
 cunrrencies().then((currencies) => {
   const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`).join("\n");
-  from.innerHTML = option;
-  to.innerHTML = option;
-  from.value = "EUR";
-  to.value = "DKK";
+  currencyFrom.innerHTML = option;
+  currencyTo.innerHTML = option;
+  currencyFrom.value = "EUR";
+  currencyTo.value = "DKK";
   amount.value = 1;
   conversion();
 });
 
-const swapCurrencies = () => {
-  temp = from.value;
-  from.value = to.value;
-  to.value = temp;
+const swap = () => {
+  temp = currencyFrom.value;
+  currencyFrom.value = currencyTo.value;
+  currencyTo.value = temp;
   conversion();
 };
 
-from.addEventListener("change", conversion);
-to.addEventListener("change", conversion);
+currencyFrom.addEventListener("change", conversion);
+currencyTo.addEventListener("change", conversion);
 amount.addEventListener("change", conversion);
 amount.addEventListener("keyup", conversion);
-swap.addEventListener("click", swapCurrencies);
+swapCurrencies.addEventListener("click", swap);
