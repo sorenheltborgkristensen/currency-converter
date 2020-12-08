@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <select class="currencies-from"></select>
-    <select class="currencies-to"></select>
-    <input class="amount" type="number" min="0" />
-    <button class="swap">swap</button>
-    <p class="result"></p>
+    <section>
+      <input class="amount" type="number" min="0" />
+      <div>
+        <select class="currencies-from"></select>
+        <button class="swap">to</button>
+        <select class="currencies-to"></select>
+      </div>
+      <p class="result"></p>
+    </section>
     <script src="scripts/main.js"></script>
   </body>
 </html>
