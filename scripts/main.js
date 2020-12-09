@@ -7,14 +7,14 @@ const swapCurrencies = document.querySelector(".swap-currency");
 const url_currencies = "https://api.frankfurter.app/currencies";
 const url_conversion = "https://api.frankfurter.app/latest";
 
-const cunrrencies = async () => {
+async function cunrrencies() {
   const response = await fetch(url_currencies);
   const data = await response.json();
   const currencies = Object.entries(data);
   return currencies;
-};
+}
 
-const conversion = async () => {
+async function conversion() {
   if (currencyFrom.value === currencyTo.value) {
     result.textContent = amount.value;
   } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
@@ -23,7 +23,7 @@ const conversion = async () => {
     const conversion = Object.values(data.rates);
     result.textContent = parseFloat(conversion).toFixed(2);
   }
-};
+}
 
 cunrrencies().then((currencies) => {
   const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`).join("\n");
@@ -35,12 +35,14 @@ cunrrencies().then((currencies) => {
   conversion();
 });
 
-const swap = () => {
+function swap() {
   temp = currencyFrom.value;
   currencyFrom.value = currencyTo.value;
   currencyTo.value = temp;
   conversion();
-};
+}
+
+conversion();
 
 currencyFrom.addEventListener("change", conversion);
 currencyTo.addEventListener("change", conversion);
