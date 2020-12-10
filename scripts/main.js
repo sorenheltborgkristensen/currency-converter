@@ -1,3 +1,5 @@
+"use strict";
+
 const currencyFrom = document.querySelector(".from");
 const currencyTo = document.querySelector(".to");
 const amount = document.querySelector(".amount");
@@ -32,14 +34,14 @@ const displayConversionResult = (valuta) => {
   result.textContent = parseFloat(Object.values(valuta)).toFixed(2);
 };
 
-const setStartValues = () => {
+const setValues = () => {
   currencyFrom.value = "EUR";
   currencyTo.value = "DKK";
   amount.value = 1;
 };
 
 const swapFromTo = () => {
-  temp = currencyFrom.value;
+  const temp = currencyFrom.value;
   currencyFrom.value = currencyTo.value;
   currencyTo.value = temp;
   conversion();
@@ -47,7 +49,7 @@ const swapFromTo = () => {
 
 const setup = async () => {
   await currencies();
-  setStartValues();
+  setValues();
   await conversion();
 };
 
