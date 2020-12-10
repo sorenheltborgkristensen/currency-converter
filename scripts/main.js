@@ -7,9 +7,8 @@ const swap = document.querySelector(".swap");
 const currencies = async () => {
   const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
-  const currencies = data;
+  const currencies = Object.entries(data);
   populateSelectOptions(currencies);
-  return currencies;
 };
 
 const conversion = async () => {
@@ -19,16 +18,18 @@ const conversion = async () => {
     const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
     const data = await response.json();
     const valuta = data.rates;
-    result.textContent = parseFloat(Object.values(valuta)).toFixed(2);
+    displayConversionResult(valuta);
   }
 };
 
 const populateSelectOptions = (currencies) => {
-  const option = Object.entries(currencies)
-    .map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`)
-    .join("\n");
+  const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`).join("\n");
   currencyFrom.innerHTML = option;
   currencyTo.innerHTML = option;
+};
+
+const displayConversionResult = (valuta) => {
+  result.textContent = parseFloat(Object.values(valuta)).toFixed(2);
 };
 
 const setStartValues = () => {
