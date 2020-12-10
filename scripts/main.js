@@ -19,8 +19,8 @@ const conversion = async () => {
   } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
     const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
     const data = await response.json();
-    const valuta = data.rates;
-    displayConversionResult(valuta);
+    const conversionResult = parseFloat(Object.values(data.rates)).toFixed(2);
+    displayConversionResult(conversionResult);
   }
 };
 
@@ -30,8 +30,8 @@ const populateSelectOptions = (currencies) => {
   currencyTo.innerHTML = option;
 };
 
-const displayConversionResult = (valuta) => {
-  result.textContent = parseFloat(Object.values(valuta)).toFixed(2);
+const displayConversionResult = (conversionResult) => {
+  result.textContent = conversionResult;
 };
 
 const setValues = () => {
