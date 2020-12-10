@@ -1,51 +1,59 @@
-const currencyFrom = document.querySelector(".currency-from");
-const currencyTo = document.querySelector(".currency-to");
+const currencyFrom = document.querySelector(".from");
+const currencyTo = document.querySelector(".to");
 const amount = document.querySelector(".amount");
 const result = document.querySelector(".result");
-const swapCurrencies = document.querySelector(".swap-currency");
+const swap = document.querySelector(".swap");
 
-const url_currencies = "https://api.frankfurter.app/currencies";
-const url_conversion = "https://api.frankfurter.app/latest";
-
-async function cunrrencies() {
-  const response = await fetch(url_currencies);
+const currencies = async () => {
+  const response = await fetch("https://api.frankfurter.app/currencies");
   const data = await response.json();
-  const currencies = Object.entries(data);
+  const currencies = data;
+  populateSelectOptions(currencies);
   return currencies;
-}
+};
 
-async function conversion() {
+const conversion = async () => {
   if (currencyFrom.value === currencyTo.value) {
     result.textContent = amount.value;
   } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
-    const response = await fetch(url_conversion + `?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
+    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
     const data = await response.json();
-    const conversion = Object.values(data.rates);
-    result.textContent = parseFloat(conversion).toFixed(2);
+    const valuta = data.rates;
+    result.textContent = parseFloat(Object.values(valuta)).toFixed(2);
   }
-}
+};
 
-cunrrencies().then((currencies) => {
-  const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`).join("\n");
+const populateSelectOptions = (currencies) => {
+  const option = Object.entries(currencies)
+    .map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`)
+    .join("\n");
   currencyFrom.innerHTML = option;
   currencyTo.innerHTML = option;
+};
+
+const setStartValues = () => {
   currencyFrom.value = "EUR";
   currencyTo.value = "DKK";
   amount.value = 1;
-  conversion();
-});
+};
 
-function swap() {
+const swapFromTo = () => {
   temp = currencyFrom.value;
   currencyFrom.value = currencyTo.value;
   currencyTo.value = temp;
   conversion();
-}
+};
 
-conversion();
+const setup = async () => {
+  await currencies();
+  setStartValues();
+  await conversion();
+};
+
+setup();
 
 currencyFrom.addEventListener("change", conversion);
 currencyTo.addEventListener("change", conversion);
 amount.addEventListener("change", conversion);
 amount.addEventListener("keyup", conversion);
-swapCurrencies.addEventListener("click", swap);
+swap.addEventListener("click", swapFromTo);
