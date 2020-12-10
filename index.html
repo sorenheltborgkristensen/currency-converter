@@ -8,13 +8,19 @@
   </head>
   <body>
     <section>
-      <input class="amount" type="number" min="0" />
-      <div>
-        <select class="from"></select>
-        <button class="swap">to</button>
-        <select class="to"></select>
-      </div>
       <p class="result"></p>
+      <input class="amount" type="number" min="0" />
+      <div class="select-currencies">
+        <div>
+          <label for="from">From</label>
+          <select id="from" class="from"></select>
+        </div>
+        <button class="swap"><img src="images/swap.png" alt="" /></button>
+        <div>
+          <label for="to">To</label>
+          <select id="to" class="to"></select>
+        </div>
+      </div>
     </section>
     <script src="scripts/main.js"></script>
   </body>

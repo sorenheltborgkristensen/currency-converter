@@ -9,7 +9,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f6f8;
+  background-color: #f0f3f7;
+}
+
+section {
+  height: 500px;
+  background-color: #ffffff;
+  padding: 0 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-top: 5px solid #48aaf3;
 }
 
 input {
@@ -32,10 +43,7 @@ input[type="number"] {
 select {
   height: 45px;
   border: none;
-}
-
-div {
-  margin: 20px 0;
+  background-color: #f0f3f7;
 }
 
 .result {
@@ -43,4 +51,34 @@ div {
   height: 45px;
   line-height: 45px;
   font-size: 22px;
+}
+
+.amount {
+  margin: 30px 0;
+}
+
+.select-currencies {
+  display: flex;
+}
+
+.select-currencies div {
+  display: flex;
+  flex-direction: column;
+}
+
+.select-currencies .swap {
+  margin: 0 30px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+}
+
+.select-currencies .swap img {
+  height: 45px;
+  transition: all 0.2s;
+}
+
+.select-currencies .swap:hover img {
+  transform: scale(0.8);
 }
