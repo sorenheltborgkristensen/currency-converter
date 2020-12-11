@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -5,80 +7,68 @@
 }
 
 body {
-  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f3f7;
+}
+
+main {
+  width: 50%;
 }
 
 section {
-  height: 500px;
-  background-color: #ffffff;
-  padding: 0 60px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-top: 5px solid #48aaf3;
+}
+
+section:first-child {
+  margin-bottom: 50px;
+}
+
+svg {
+  position: absolute;
+  bottom: 0;
+  opacity: 0.1;
 }
 
 input {
-  width: 100%;
-  height: 45px;
-  font-size: 22px;
-  text-align: center;
+  font-weight: bold;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
+.amount,
+.result {
+  width: 50%;
+  font-size: 32px;
+  font-weight: 300;
 }
 
 select {
-  height: 45px;
-  border: none;
-  background-color: #f0f3f7;
-}
-
-.result {
-  text-align: center;
-  height: 45px;
-  line-height: 45px;
-  font-size: 22px;
+  width: 45%;
+  height: 40px;
 }
 
 .amount {
-  margin: 30px 0;
-}
-
-.select-currencies {
-  display: flex;
-}
-
-.select-currencies div {
-  display: flex;
-  flex-direction: column;
-}
-
-.select-currencies .swap {
-  margin: 0 30px;
   border: none;
-  cursor: pointer;
+  border-bottom: 1px solid #000;
+}
+
+.result {
+  text-align: right;
+}
+
+.from,
+.to {
+  border: none;
+  border-bottom: 1px solid #000;
+}
+
+.swap {
+  width: 10%;
   background-color: transparent;
-  outline: none;
+  border: none;
 }
 
-.select-currencies .swap img {
-  height: 45px;
-  transition: all 0.2s;
-}
-
-.select-currencies .swap:hover img {
-  transform: scale(0.8);
+.swap img {
+  width: 20px;
 }

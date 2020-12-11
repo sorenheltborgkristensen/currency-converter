@@ -7,21 +7,17 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <section>
-      <p class="result"></p>
-      <input class="amount" type="number" min="0" />
-      <div class="select-currencies">
-        <div>
-          <label for="from">From</label>
-          <select id="from" class="from"></select>
-        </div>
+    <main>
+      <section>
+        <input class="amount" type="number" min="0" />
+        <p class="result"></p>
+      </section>
+      <section>
+        <select id="from" class="from"></select>
         <button class="swap"><img src="images/swap.png" alt="" /></button>
-        <div>
-          <label for="to">To</label>
-          <select id="to" class="to"></select>
-        </div>
-      </div>
-    </section>
+        <select id="to" class="to"></select>
+      </section>
+    </main>
     <script src="scripts/main.js"></script>
   </body>
 </html>
