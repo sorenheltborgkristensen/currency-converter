@@ -8,14 +8,42 @@
   </head>
   <body>
     <main>
-      <section>
-        <input class="amount" type="number" min="0" />
-        <p class="result"></p>
-      </section>
+      <button class="swap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22.087" height="38.934" viewBox="0 0 22.087 38.934">
+          <g id="Group_1" data-name="Group 1" transform="translate(-416.415 -511.793)">
+            <path
+              id="Path_1"
+              data-name="Path 2"
+              d="M340.088,488.178v35.549l-7.259-7.135"
+              transform="translate(769.917 1037.904) rotate(180)"
+              fill="none"
+              stroke="#707070"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+            <path
+              id="Path_2"
+              data-name="Path 3"
+              d="M340.088,488.178v35.549l-7.259-7.135"
+              transform="translate(85 26)"
+              fill="none"
+              stroke="#707070"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </button>
       <section>
         <select id="from" class="from"></select>
-        <button class="swap"><img src="images/swap.png" alt="" /></button>
         <select id="to" class="to"></select>
+      </section>
+      <section>
+        <input class="amount" type="number" min="0" />
+        <span class="line"></span>
+        <p class="result"></p>
       </section>
     </main>
     <script src="scripts/main.js"></script>
