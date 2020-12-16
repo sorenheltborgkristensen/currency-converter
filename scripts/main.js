@@ -6,52 +6,60 @@ const amount = document.querySelector(".amount");
 const result = document.querySelector(".result");
 const swap = document.querySelector(".swap");
 
-const currencies = async () => {
-  const response = await fetch("https://api.frankfurter.app/currencies");
-  const data = await response.json();
-  const currencies = Object.entries(data);
-  populateSelectOptions(currencies);
-};
-
-const conversion = async () => {
-  if (currencyFrom.value === currencyTo.value) {
-    result.textContent = amount.value;
-  } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
-    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
+async function currencies() {
+  try {
+    const response = await fetch("https://api.frankfurter.app/currencies");
     const data = await response.json();
-    const conversionResult = parseFloat(Object.values(data.rates)).toFixed(2);
-    displayConversionResult(conversionResult);
+    const currencies = Object.entries(data);
+    populateSelectOptions(currencies);
+  } catch (error) {
+    console.log(error);
   }
-};
+}
 
-const populateSelectOptions = (currencies) => {
+async function conversion() {
+  try {
+    if (currencyFrom.value === currencyTo.value) {
+      result.textContent = amount.value;
+    } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
+      const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
+      const data = await response.json();
+      const conversionResult = parseFloat(Object.values(data.rates)).toFixed(2);
+      displayConversionResult(conversionResult);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function populateSelectOptions(currencies) {
   const option = currencies.map((currency) => `<option value="${currency[0]}">${currency[0]} - ${currency[1]}</option>`).join("\n");
   currencyFrom.innerHTML = option;
   currencyTo.innerHTML = option;
-};
+}
 
-const displayConversionResult = (conversionResult) => {
+function displayConversionResult(conversionResult) {
   result.textContent = conversionResult;
-};
+}
 
-const setValues = () => {
+function setValues() {
   currencyFrom.value = "EUR";
   currencyTo.value = "DKK";
   amount.value = 1;
-};
+}
 
-const swapFromTo = () => {
+function swapFromTo() {
   const temp = currencyFrom.value;
   currencyFrom.value = currencyTo.value;
   currencyTo.value = temp;
   conversion();
-};
+}
 
-const setup = async () => {
+async function setup() {
   await currencies();
   setValues();
   await conversion();
-};
+}
 
 setup();
 
