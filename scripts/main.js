@@ -22,7 +22,14 @@ async function conversion() {
     if (currencyFrom.value === currencyTo.value) {
       result.textContent = amount.value;
     } else if (amount.value.length !== 0 && currencyFrom.value.length !== 0 && currencyTo.value.length !== 0) {
-      const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount.value}&from=${currencyFrom.value}&to=${currencyTo.value}`);
+      const response = await fetch(
+        "https://api.frankfurter.app/latest?" +
+          new URLSearchParams({
+            amount: amount.value,
+            from: currencyFrom.value,
+            to: currencyTo.value,
+          })
+      );
       const data = await response.json();
       const conversionResult = parseFloat(Object.values(data.rates)).toFixed(2);
       displayConversionResult(conversionResult);
